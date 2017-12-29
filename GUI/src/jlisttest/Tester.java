@@ -3,11 +3,8 @@ package jlisttest;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.*;
+import javax.swing.event.*;
 
 public class Tester {
 	public static void main(String[] args) {
@@ -18,8 +15,16 @@ public class Tester {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(200,100));
 		//以数组构造方法创建
-		String[] str = {"aa","bb","cc","dd","ee","ff","gg"};
+		String[] str = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","bb","cc","dd","ee","ff","gg"};
 		final JList jList = new JList(str);
+		jList.addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e) {
+				if(!jList.getValueIsAdjusting()){	//设置只有释放鼠标时才触发
+					System.out.println(jList.getSelectedValue());
+				}
+			}
+		});
+		
 		
 		scrollPane.setViewportView(jList);
 		panel.add(scrollPane);
