@@ -1,26 +1,49 @@
 package jlisttest;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 import javax.swing.*;
+import javax.swing.event.*;
 
 public class Main {
 	public static void main(String[] args)
 	{
-		File top = new File("/Users/xczhw/FileTester");
+		MyFile top = new MyFile("/Users/xczhw/FileTester");
 		JScrollPane jsp = new JScrollPane();
-		File[] listF = top.listFiles();
-		JList<File> l = new JList<File>(listF);
+		MyFile[] listF = top.listFiles();
+		JList<String> l = new JList<String>(MyFile.getStirng(listF));
 		l.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e)
 			{
 				if(e.getClickCount() == 2)
 				{
 					int index = l.locationToIndex(e.getPoint());
-					System.out.println("Double clicked on Item " + index + listF[index]);// + clicked);
+					MyFile clicked = listF[index];
+					Desktop desk = Desktop.getDesktop();
+					try {
+						desk.open(clicked);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					System.out.println("Double clicked on Item " + index + clicked);
+					
 				}
 			}
+		});
+		l.addListSelectionListener(new ListSelectionListener(){
+
+			public void valueChanged(ListSelectionEvent e) {
+				int index = l.getSelectedIndex();
+				MyFile clicked = listF[index];
+				if(clicked.isFile())
+					return;
+				
+			}
+			
 		});
 		jsp.setViewportView(l);
 		
@@ -31,10 +54,7 @@ public class Main {
 		JFrame frame = new JFrame("haha");
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
-		frame.setSize(350, 350);
+		frame.setSize(800, 500);
 	}
-	private class mls extends MouseAdapter
-	{
-		
-	}
+
 }
