@@ -64,10 +64,17 @@ public class List extends JList<MyFile>
 			MyFile clicked = listF[index];
 			if(clicked.isFile())
 				return;
+			if(getValueIsAdjusting())
+				return;
 			List l = new List(clicked,lastJSP);
 			JScrollPane scrolP = new JScrollPane();
 			scrolP.setViewportView(l);
-			lastJSP.setRightComponent(scrolP);
+			JSplitPane jsp = (JSplitPane) lastJSP.getLeftComponent();
+			JSplitPane spliter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jsp, scrolP);
+			spliter.setOneTouchExpandable(true);
+			spliter.setContinuousLayout(true);
+			lastJSP.setLeftComponent(spliter);
+			lastJSP = jsp;
 		}
 	}
 }

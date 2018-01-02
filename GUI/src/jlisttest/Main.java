@@ -17,6 +17,8 @@ public class Main {
 		JScrollPane lAdder = new JScrollPane();
 		lAdder.setViewportView(l);
 		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, lAdder, null);
+		jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jsp, null);
+		jsp.setOneTouchExpandable(true);
 		l.setMyJSP(jsp);
 		
 		
