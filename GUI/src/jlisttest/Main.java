@@ -16,10 +16,11 @@ public class Main {
 		List l = new List(top);
 		JScrollPane lAdder = new JScrollPane();
 		lAdder.setViewportView(l);
-		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, lAdder, null);
-		jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jsp, null);
+		JSplitPane smalljsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, null, lAdder);
+		JSplitPane jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, smalljsp, null);
 		jsp.setOneTouchExpandable(true);
-		l.setMyJSP(jsp);
+		l.setMyJSP(smalljsp);
+		List.setViewPane(jsp);
 		
 		
 		JFrame frame = new JFrame("haha");

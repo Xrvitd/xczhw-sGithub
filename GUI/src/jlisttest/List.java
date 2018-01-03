@@ -9,8 +9,16 @@ import javax.swing.event.*;
 
 public class List extends JList<MyFile>
 {
+	private static JSplitPane viewPane;
+	
 	private MyFile[] listF;
-	private JSplitPane lastJSP;
+	private JSplitPane JSP;
+	
+	public static void setViewPane(JSplitPane jsp)
+	{
+		viewPane = jsp;
+		return;
+	}
 	
 	List(MyFile mf)
 	{
@@ -20,17 +28,9 @@ public class List extends JList<MyFile>
 		addListSelectionListener(new SelectionListener());
 	}
 	
-	List(MyFile mf, JSplitPane jsp)
-	{
-		this(mf);
-		if(jsp == null)
-			jsp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this, null);
-		lastJSP = jsp;
-	}
-	
 	public void setMyJSP(JSplitPane jsp)
 	{
-		lastJSP = jsp;
+		JSP = jsp;
 	}
 	
 	private class MouseListener extends MouseAdapter
@@ -62,19 +62,21 @@ public class List extends JList<MyFile>
 		{
 			int index = getSelectedIndex();
 			MyFile clicked = listF[index];
+			viewPane.setLeftComponent(JSP);
 			if(clicked.isFile())
 				return;
 			if(getValueIsAdjusting())
 				return;
-			List l = new List(clicked,lastJSP);
+			List l = new List(clicked);
 			JScrollPane scrolP = new JScrollPane();
 			scrolP.setViewportView(l);
-			JSplitPane jsp = (JSplitPane) lastJSP.getLeftComponent();
-			JSplitPane spliter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jsp, scrolP);
+			
+			JSplitPane spliter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, JSP, scrolP);
 			spliter.setOneTouchExpandable(true);
 			spliter.setContinuousLayout(true);
-			lastJSP.setLeftComponent(spliter);
-			lastJSP = jsp;
+			l.setMyJSP(spliter);
+			
+			viewPane.setLeftComponent(spliter);
 		}
 	}
 }
