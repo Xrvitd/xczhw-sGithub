@@ -12,7 +12,7 @@ public class List extends JList<MyFile>
 	private static JSplitPane viewPane;
 	
 	private MyFile[] listF;
-	private JSplitPane JSP;
+	private JComponent JSP;
 	
 	public static void setViewPane(JSplitPane jsp)
 	{
@@ -28,7 +28,7 @@ public class List extends JList<MyFile>
 		addListSelectionListener(new SelectionListener());
 	}
 	
-	public void setMyJSP(JSplitPane jsp)
+	public void setMyJSP(JComponent jsp)
 	{
 		JSP = jsp;
 	}
