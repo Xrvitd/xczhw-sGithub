@@ -1,9 +1,45 @@
 package main;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MyFile extends File
 {
+	public static ArrayList<Tag> allTag = new ArrayList <Tag>();
+	
+	public static void newTag(Tag t)
+	{
+		for(Tag i : allTag)
+			if(i.equals(t))
+				return;
+		allTag.add(t);
+	}
+	
+	public static void removeTag(Tag t)
+	{
+		allTag.remove(t);
+	}
+	
+	ArrayList <Tag> tags = new ArrayList<Tag>();
+	
+	public void addTag(Tag t)
+	{
+		for(Tag i : tags)
+			if(i.equals(t))
+				return;
+		tags.add(t);
+	}
+	
+	public void delTag(Tag t)
+	{
+		tags.remove(t);
+	}
+	
+	public ArrayList<Tag> getTag()
+	{
+		return tags;
+	}
+	
 	public MyFile(String pathname) {
 		super(pathname);
 	}
