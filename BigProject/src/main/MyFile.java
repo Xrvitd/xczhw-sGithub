@@ -20,6 +20,11 @@ public class MyFile extends File
 		allTag.remove(t);
 	}
 	
+	public static ArrayList <Tag> getAllTag()
+	{
+		return allTag;
+	}
+	
 	ArrayList <Tag> tags = new ArrayList<Tag>();
 	
 	public void addTag(Tag t)
