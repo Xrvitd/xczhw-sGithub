@@ -13,6 +13,7 @@ public class Main {
 	public static void main(String[] args)
 	{
 		MyFile top = new MyFile("/Users/xczhw/FileTester");
+		//...
 		MyFrame frame = new MyFrame(top);
 	}
 
