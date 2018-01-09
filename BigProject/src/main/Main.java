@@ -15,6 +15,7 @@ public class Main {
 		MyFile top = new MyFile("/Users/xczhw/FileTester");
 		//...
 		MyFrame frame = new MyFrame(top);
+		//ίχίχίχ
 	}
 
 }
